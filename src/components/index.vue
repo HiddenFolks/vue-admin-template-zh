@@ -4,7 +4,7 @@
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
                     <div class="user-info">
-                        <img src="./../assets/images/player.gif" class="user-avator" alt="">
+                        <img src="./../assets/images/avatar.png" class="user-avator" alt="">
                         <div class="user-info-cont">
                             <div class="user-info-name">{{name}}</div>
                             <div>{{role}}</div>
@@ -297,7 +297,7 @@
     .user-avator {
         width: 120px;
         height: 120px;
-        border-radius: 50%;
+       
     }
 
     .user-info-cont {

@@ -1,5 +1,6 @@
 <template>
   <el-row class="container">
+    <!-- logo -->
     <el-col :span="24" class="header">
       <el-col
         :span="10"
@@ -12,10 +13,19 @@
         </div>
       </el-col>
       <el-col :span="4" class="userinfo">
-
+        
+        <!-- 消息中心 -->
+        <el-col :span="15">
+          <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
+            <i class="el-icon-bell"></i>
+          </el-tooltip>
+        </el-col>  
+        
+        
+        <!--用户头像、退出登录  -->
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">
-            <img src="./../assets/images/player.gif" />
+            <img src="./../assets/images/avatar.png" />
             {{sysUserName}}
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -26,8 +36,8 @@
         </el-dropdown>
       </el-col>
     </el-col>
-   
-    <el-col :span="24" class="main"> 
+
+    <el-col :span="24" class="main">
       <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
         <!--导航菜单-->
         <el-menu
@@ -93,7 +103,6 @@
               </ul>
             </template>
             <template v-else>
-              
               <li class="el-submenu">
                 <div
                   class="el-submenu__title el-menu-item"
@@ -108,17 +117,18 @@
           </li>
         </ul>
       </aside>
+      <!-- 跳转路由 -->
       <section class="content-container">
         <div class="grid-content bg-purple-light">
           <el-col :span="24" class="breadcrumb-container">
-            
             <strong class="title">{{$route.name}}</strong>
             <el-breadcrumb separator="/" class="breadcrumb-inner">
               <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">{{ item.name }}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
+          <!-- 跳转界面 -->
           <el-col :span="24" class="content-wrapper">
-            <transition name="fade" mode="out-in" >
+            <transition name="fade" mode="out-in">
               <router-view></router-view>
             </transition>
           </el-col>
@@ -134,8 +144,7 @@ export default {
     return {
       sysName: "LOGO",
       collapsed: false,
-      sysUserName: "admin",
-  
+      sysUserName: localStorage.getItem("ms_username")
     };
   },
   methods: {
@@ -251,18 +260,16 @@ export default {
     bottom: 0px;
     overflow: hidden;
     aside {
-     
       flex: 0 0 230px;
       width: 230px;
       // position: absolute;
       // top: 0px;
       // bottom: 0px;
-      .el-menu { 
-        background: #e9f3f5;
+      .el-menu {
+        background: #eeeee9;
         height: 100%;
       }
       .collapsed {
-        
         width: 60px;
         .item {
           position: relative;
@@ -282,7 +289,6 @@ export default {
       width: 60px;
     }
     .menu-expanded {
-      
       flex: 0 0 230px;
       width: 230px;
     }
@@ -301,7 +307,7 @@ export default {
         .title {
           width: 200px;
           float: left;
-          color: #475669;
+          color: #201d1c;
         }
         .breadcrumb-inner {
           float: right;
@@ -316,11 +322,13 @@ export default {
 }
 .fade-enter-active,
 .fade-leave-active {
-	transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .fade-enter,
 .fade-leave-active {
-	opacity: 0;
+  opacity: 0;
 }
+
+
 </style>
