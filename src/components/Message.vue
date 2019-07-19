@@ -1,6 +1,6 @@
 <template>
-  <el-row>
-    <el-col>
+  <el-row >
+    <el-col class="container-box">
       <el-col>
         <el-button :plain="true" @click="open">打开消息提示</el-button>
         <el-button :plain="true" @click="openVn">我是消息按钮</el-button>
@@ -106,6 +106,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container-box{
+  display: flex;
+}
 .el-col {
   border-radius: 4px;
   margin-top: 20px;

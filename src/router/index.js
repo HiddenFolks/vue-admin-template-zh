@@ -1,37 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './../views/Home'
-import Login from './../views/Login'
-import Table from '@/components/Table'
-import Echart from '@/components/Echart'
-import Transition from '@/components/Transition'
-import Message from '@/components/Message'
-import Slider from '@/components/Slider'
-import Upload from '@/components/Upload'
 Vue.use(Router)
+
 
 export default new Router({
   mode:'history',
-  routes: [    
+  routes: [  
+ 
     {
       path:'/',   
       name:'导航一',
       iconCls:'el-icon-message',
-      component:Home,
-      children:[
-        { path:'Table',name:'Table+轮播', component: Table},
-        { path: 'Eachrt',name:'Echart图表',component:Echart},
-        { path: 'Transiton' ,name:'Transition',component:Transition }
+      component:resolve => require(['@/views/Home'],resolve),
+      children:[ 
+        { path:'index' , name:'index', component:resolve => require(['@/components/index'],resolve)},
+        { path: 'Table', name:'Table+轮播', component:resolve => require(['@/components/Table'],resolve) },
+        { path:'Echart',name:'Echar图表',component:resolve => require(['@/components/Echart'],resolve)}     
       ]
     },
     {
       path:'/',   
       name:'导航二',
       iconCls:'fa fa-id-card-o',
-      component:Home,
+      component:resolve => require(['@/views/Home'],resolve),
       children:[
-        { path:'Message',name:'Message消息提醒', component: Message},
-        { path:'Slider',name:'Slider组件',component:Slider}
+        { path:'Message',name:'Message消息提醒', component:resolve => require(['@/components/Message'],resolve)},
+        { path:'Slider',name:'Slider组件',component:resolve => require(['@/components/Slider'],resolve)},
+        { path: 'Transition' ,name:'Transition',component:resolve => require(['@/components/Transition'],resolve) }
 
       ]
     },
@@ -39,22 +34,32 @@ export default new Router({
       path:'/',    
       name:'导航三',
       iconCls:'fa fa-address-card',
-      component:Home,
+      component:resolve => require(['@/views/Home'],resolve),
       children:[
-        { path:'Upload',name:'Upload文件上传', component: Upload},
-    
+        { path:'Upload',name:'Upload文件上传', component: resolve => require(['@/components/Upload'],resolve)},
+        { path:'VueEditor',name:'富文本编辑器',component:resolve => require(['@/components/VueEditor'],resolve)},
+        { path:'Markdown',name:'Markdown编辑器',component:resolve => require(['@/components/Markdown'],resolve)}
       ]
     },
     {
       path:'/',    
       name:'导航四',
       iconCls:'fa fa-bar-chart',
-      component:Home,
+      component:resolve => require(['@/views/Home'],resolve),
+      children:[
+        { path:'Permission',name:'权限测试', component: resolve => require(['@/components/Permission'],resolve)}
    
+      ]
+    
     },
     {
       path: '/Login',
-      component: Login,
+      component: resolve => require(['@/views/Login'],resolve),
+      hidden:true
+    },
+    {
+      path: '/403',
+      component: resolve => require(['@/components/403'],resolve),
       hidden:true
     },
   

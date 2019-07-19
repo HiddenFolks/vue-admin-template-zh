@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row class="content-box" >
     <el-col :span="16">
       <el-button @click="show = !show">点我</el-button>
 
@@ -95,5 +95,9 @@ export default {
   padding: 40px 20px;
   box-sizing: border-box;
   margin-right: 20px;
+}
+.content-box{
+  display: flex;
+  
 }
 </style>
