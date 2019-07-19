@@ -15,7 +15,7 @@
 
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">
-            <img :src="this.sysUserAvatar" />
+            <img src="./../assets/images/player.gif" />
             {{sysUserName}}
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -26,7 +26,8 @@
         </el-dropdown>
       </el-col>
     </el-col>
-    <el-col :span="24" class="main">
+   
+    <el-col :span="24" class="main"> 
       <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
         <!--导航菜单-->
         <el-menu
@@ -92,6 +93,7 @@
               </ul>
             </template>
             <template v-else>
+              
               <li class="el-submenu">
                 <div
                   class="el-submenu__title el-menu-item"
@@ -109,13 +111,14 @@
       <section class="content-container">
         <div class="grid-content bg-purple-light">
           <el-col :span="24" class="breadcrumb-container">
+            
             <strong class="title">{{$route.name}}</strong>
             <el-breadcrumb separator="/" class="breadcrumb-inner">
               <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">{{ item.name }}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
           <el-col :span="24" class="content-wrapper">
-            <transition name="fade" mode="out-in">
+            <transition name="fade" mode="out-in" >
               <router-view></router-view>
             </transition>
           </el-col>
@@ -132,8 +135,7 @@ export default {
       sysName: "LOGO",
       collapsed: false,
       sysUserName: "admin",
-      sysUserAvatar:
-        "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+  
     };
   },
   methods: {
@@ -249,15 +251,18 @@ export default {
     bottom: 0px;
     overflow: hidden;
     aside {
+     
       flex: 0 0 230px;
       width: 230px;
       // position: absolute;
       // top: 0px;
       // bottom: 0px;
-      .el-menu {
+      .el-menu { 
+        background: #e9f3f5;
         height: 100%;
       }
       .collapsed {
+        
         width: 60px;
         .item {
           position: relative;
@@ -277,6 +282,7 @@ export default {
       width: 60px;
     }
     .menu-expanded {
+      
       flex: 0 0 230px;
       width: 230px;
     }
@@ -307,5 +313,14 @@ export default {
       }
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+	transition: all .2s ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+	opacity: 0;
 }
 </style>
