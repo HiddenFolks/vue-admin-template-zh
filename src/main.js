@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -23,7 +21,7 @@ router.beforeEach((to, from, next) => {
   if (!role && to.path !== '/login') {
       next('/login');
   } else if (to.path==='/Permission') {
-      // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
+      // 如果是管理员权限则可进入，这里是简单的模拟管理员权限
       role === 'admin' ? next() : next('/403');
   } else {
       // 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容

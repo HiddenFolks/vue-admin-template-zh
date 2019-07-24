@@ -20,6 +20,7 @@
     "font-awesome": "^4.7.0",
     "git": "^0.1.5",
     "mavon-editor": "^2.7.5",
+    "typed.js": "^2.0.10",
     "vue": "^2.5.2",
     "vue-echarts": "^4.0.3",
     "vue-quill-editor": "^3.0.6",

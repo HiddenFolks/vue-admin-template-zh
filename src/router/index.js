@@ -26,6 +26,11 @@ export default new Router({
           path: 'Echart',
           name: 'Echar图表',
           component: resolve => require(['@/components/Echart'], resolve)
+        },
+        {
+          path: 'blank',
+          name:'打字动画',
+          component: resolve => require(['@/components/blank'], resolve)
         }
       ]
     },
@@ -48,6 +53,11 @@ export default new Router({
           path: 'Transition',
           name: 'Transition',
           component: resolve => require(['@/components/Transition'], resolve)
+        },
+        {
+          path: 'TabsMessage',
+          name: '消息中心',
+          component: resolve => require(['@/components/TabsMessage'], resolve)
         }
 
       ]
@@ -93,7 +103,13 @@ export default new Router({
           path:'404',
           name:'404页面',
           component:resolve =>require(['@/components/404'],resolve)
-        }
+        },
+        {
+          path:'3dCube',
+          name:'3D魔方',
+          component:resolve => require(['@/components/3dCube'],resolve)
+        } ,
+ 
       ]
 
     },
@@ -102,6 +118,7 @@ export default new Router({
       component: resolve => require(['@/views/Login'], resolve),
       hidden: true
     },
+   
 
 
 

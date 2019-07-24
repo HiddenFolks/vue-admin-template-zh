@@ -3,9 +3,10 @@
     <template>
       <el-carousel :interval="3000" type="card" height="200px" arrow="always">
         <el-carousel-item v-for="item in imagesbox" :key="item.id">
-          <img :src="item.idView" class="image" />
+          <img style="width:100%; height:auto;" :src="item.idView" class="image" />
         </el-carousel-item>
       </el-carousel>
+   
     </template>
 
     <!--搜索框-->

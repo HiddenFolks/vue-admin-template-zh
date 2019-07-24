@@ -2,26 +2,27 @@
   <el-row class="container">
     <!-- logo -->
     <el-col :span="24" class="header">
-      <el-col
-        :span="10"
-        class="logo"
-        :class="collapsed?'logo-collapse-width':'logo-width'"
-      >{{collapsed?'':sysName}}</el-col>
+      <el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
+        {{collapsed?'':sysName}} 
+      </el-col>
+
+    <!-- 展开收缩菜单栏 -->
       <el-col :span="10">
         <div class="tools" @click.prevent="collapse">
           <i class="fa fa-align-justify"></i>
         </div>
       </el-col>
+
+
+      <!-- 消息中心 -->
       <el-col :span="4" class="userinfo">
-        
-        <!-- 消息中心 -->
-        <el-col :span="15">
+        <span style="margin-right: 10px;">
           <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-            <i class="el-icon-bell"></i>
+            <i class="el-icon-bell" @click="TabsMessage"></i>
           </el-tooltip>
-        </el-col>  
-        
-        
+          <span class="btn-bell-badge" v-if="message"></span>
+        </span>
+
         <!--用户头像、退出登录  -->
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">
@@ -50,20 +51,20 @@
           router
           v-show="!collapsed"
         >
-          <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-            <el-submenu :index="index+''" v-if="!item.leaf">
+          <template v-for="(item,index) in routes">
+            <el-submenu :index="index+''" :key="item.name" v-if="!item.leaf">
               <template slot="title">
                 <i :class="item.iconCls"></i>
-                {{item.name}}
+                <span class="text">{{item.name}}</span>
               </template>
               <el-menu-item
-                v-for="child in item.children"
+                v-for="child in routeChildren(item)"
                 :index="child.path"
                 :key="child.path"
-                v-if="!child.hidden"
+  
               >{{child.name}}</el-menu-item>
             </el-submenu>
-            <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path">
+            <el-menu-item v-if="item.leaf&&item.children.length>0" :key="item.name" :index="item.children[0].path">
               <i :class="item.iconCls"></i>
               {{item.children[0].name}}
             </el-menu-item>
@@ -72,8 +73,9 @@
         <!--导航菜单-折叠后-->
         <ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
           <li
-            v-for="(item,index) in $router.options.routes"
-            v-if="!item.hidden"
+            v-for="(item,index) in routes"
+            :key="item.name"
+           
             class="el-submenu item"
           >
             <template v-if="!item.leaf">
@@ -93,10 +95,10 @@
               >
                 <li
                   v-for="child in item.children"
-                  v-if="!child.hidden"
+                
                   :key="child.path"
                   class="el-menu-item"
-                  style="padding-left: 40px;"
+                  style="padding-left: 40px; color:#fff"
                   :class="$route.path==child.path?'is-active':''"
                   @click="$router.push(child.path)"
                 >{{child.name}}</li>
@@ -139,15 +141,35 @@
 </template>
 
 <script>
+
+import { mcall } from 'q';
 export default {
   data() {
     return {
       sysName: "LOGO",
       collapsed: false,
-      sysUserName: localStorage.getItem("ms_username")
+      sysUserName: localStorage.getItem("ms_username"),
+      message: 2
     };
   },
+  computed:{
+    routes:function(){
+      return this.$router.options.routes.filter(function (item){
+        return !item.hidden
+      })
+    },
+    routeChildren:function(){
+      return function(route){
+        return route.children.filter(function(child){
+          return !child.hidden
+        })
+      }
+    }
+  },
   methods: {
+    TabsMessage() {
+      this.$router.push("/TabsMessage");
+    },
     onSubmit() {
       console.log("submit!");
     },
@@ -266,7 +288,8 @@ export default {
       // top: 0px;
       // bottom: 0px;
       .el-menu {
-        background: #eeeee9;
+        
+        background: #201d1c;
         height: 100%;
       }
       .collapsed {
@@ -291,7 +314,15 @@ export default {
     .menu-expanded {
       flex: 0 0 230px;
       width: 230px;
+      
+      .el-menu{/* 解决左侧菜单宽度显示不全 */
+      width: 100% !important;
     }
+    .el-submenu .el-menu-item{
+      min-width: 0px !important;
+    }
+    }
+    
     .content-container {
       // background: #f1f2f7;
       flex: 1;
@@ -303,7 +334,7 @@ export default {
       overflow-y: scroll;
       padding: 20px;
       .breadcrumb-container {
-        //margin-bottom: 15px;
+        margin-bottom: 15px;
         .title {
           width: 200px;
           float: left;
@@ -330,5 +361,17 @@ export default {
   opacity: 0;
 }
 
-
+.text {
+  color: #fff;
+}
+.btn-bell-badge {
+  position: absolute;
+  right: 138px;
+  top: 15px;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: #f56c6c;
+  color: #fff;
+}
 </style>
